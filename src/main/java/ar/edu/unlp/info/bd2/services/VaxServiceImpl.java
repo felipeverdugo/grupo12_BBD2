@@ -32,59 +32,30 @@ public class VaxServiceImpl implements VaxService{
 		
 	}
 
-public VaxServiceImpl(VaxRepository repository) {
+	public VaxServiceImpl(VaxRepository repository) {
 		this.repository = repository;
 	}
 	
+	public VaxRepository getRepository() {
+		return repository;
+	}
+	
+	
+	
 
+//==================Meteodos Patient=======================
 
-
-
-	public Patient createPatient(String email, String fullname, String password,Date dayOfBirth) throws VaxException{
+	public Patient createPatient(String email, String fullname, String password, Date dayOfBirth) throws VaxException{
 		Optional<Patient> aux = this.repository.getPatientByEmail(email);
 		if (aux.isPresent()) {
 			throw new VaxException("Constraint Violation");
 		}
 		Patient patient = new Patient(email, fullname, password, dayOfBirth);
 		Serializable serializablePatient = this.repository.create(patient);
-		return this.repository.getPatientById((Long) serializablePatient);
-
-	}
-
-
-
-
-	public Vaccine createVaccine(String name) throws VaxException {
-		Optional<Vaccine> aux = this.getVaccineByName(name);
-		if (aux.isPresent()) {
-			throw new VaxException("Constraint Violation");
-		}
-		Vaccine vaccine = new Vaccine(name);
-		Serializable serializableVacinne = this.repository.create(vaccine);
-		return this.repository.getVaccineById((Long) serializableVacinne);
-	}
-//
-//
-
-	public Centre createCentre(String name) throws VaxException  {
-		Centre centre = new Centre(name);
-		Serializable serializableCentre = this.repository.create(centre);
-		return this.repository.getCentreById((Long) serializableCentre);
 		
-	
+		return this.repository.getPatientById((Long) serializablePatient);
 	}
 	
-	
-
-	public Optional<Vaccine> getVaccineByName(String name) throws VaxException{
-		List<Vaccine> lista = this.repository.getVaccineByName(name);
-		return lista.stream(). 
-				filter(v -> v.getName().equals(name)).
-				findFirst();
-	}
-	
-	
-
 	public Optional<Patient> getPatientByEmail(String email) throws VaxException {
 //		List<Patient> lista = this.repository.getPatientByEmail(email);
 //		return lista.stream(). 
@@ -93,6 +64,93 @@ public VaxServiceImpl(VaxRepository repository) {
 		return this.repository.getPatientByEmail(email);
 	}
 	
+	
+
+
+//==================Meteodos Vaccine=======================
+	
+	public Vaccine createVaccine(String name) throws VaxException {
+		Optional<Vaccine> aux = this.repository.getVaccineByName(name);
+		if (aux.isPresent()) {
+			throw new VaxException("Constraint Violation");
+		}
+		Vaccine vaccine = new Vaccine(name);
+		Serializable serializableVacinne = this.repository.create(vaccine);
+		
+		return this.repository.getVaccineById((Long) serializableVacinne);
+	}
+	
+	public Optional<Vaccine> getVaccineByName(String name) throws VaxException{
+//		List<Vaccine> lista = this.repository.getVaccineByName(name);
+//		return lista.stream(). 
+//				filter(v -> v.getName().equals(name)).
+//				findFirst();
+		return this.repository.getVaccineByName(name);
+	}
+
+//==================Meteodos Centre=======================	
+	
+	public Centre createCentre(String name) throws VaxException  {			
+		Centre centre = new Centre(name);
+		Serializable serializableCentre = this.repository.create(centre);
+		
+		return this.repository.getCentreById((Long) serializableCentre);
+	}
+	
+	public Optional<Centre> getCentreByName(String name) throws VaxException  {			
+		return this.repository.getCentreByName(name);
+	}
+	
+	//nose para q se usa
+	@Override
+	public Centre updateCentre(Centre centre) {
+		return centre;
+	}
+
+	
+//==================Meteodos Nurse=======================	
+
+	@Override
+	public Nurse createNurse(String dni, String fullName, Integer experience) throws VaxException  {
+		Nurse nurse = new Nurse(dni, fullName, experience);
+		Serializable serializableCentre = this.repository.create(nurse);
+		
+		return this.repository.getNurseById((Long) serializableCentre);	
+	}
+
+
+//==================Meteodos SupportStaff=======================
+
+	@Override
+	public SupportStaff createSupportStaff(String dni, String fullName, String area) throws VaxException  {
+		SupportStaff supportStaff = new SupportStaff(dni, fullName, area);
+		Serializable serializableCentre = this.repository.create(supportStaff);
+		
+		return this.repository.getSupportStaffById((Long) serializableCentre);
+	}
+	
+	@Override
+	public Optional<SupportStaff> getSupportStaffByDni(String dni) {
+		return this.repository.getSupportStaffByDni(dni);
+	}
+
+
+		
+//==================Meteodos VaccinationSchedule=======================
+
+	public VaccinationSchedule createVaccinationSchedule() throws VaxException {
+		VaccinationSchedule vaccinationSchedule = new VaccinationSchedule();
+		Serializable serializableCentre = this.repository.create(vaccinationSchedule);
+		
+		return this.repository.getVaccinationScheduleById((Long) serializableCentre);
+	}
+	
+	public VaccinationSchedule getVaccinationScheduleById(Long id) {
+		
+		return this.repository.getVaccinationScheduleById(id);
+	}
+	
+//==================Meteodos Shot=======================		
 //
 //
 //	@Override
@@ -102,38 +160,6 @@ public VaxServiceImpl(VaxRepository repository) {
 //		return this.repository.createShot(shot);
 //	}
 //
-//
-//
-//
-//
-//
-//
-
-//
-//
-//
-
-
-//
-//
-//
-//
-//	@Override
-//	public Nurse createNurse(String dni, String fullName, Integer experience)  {
-//		return new Nurse(dni,fullName,experience);
-//		
-//	}
-//
-//
-//
-//
-//	@Override
-//	public SupportStaff createSupportStaff(String dni, String fullName, String area)  {
-//		SupportStaff supportStaff = new SupportStaff(dni,fullName,area);
-//		this.supportStaffs.add(supportStaff);
-//
-//		return supportStaff;
-//	}
 //
 //
 //
@@ -185,21 +211,12 @@ public VaxServiceImpl(VaxRepository repository) {
 //
 //
 //
-//	@Override
-//	public Optional<SupportStaff> getSupportStaffByDni(String dni) {
-//		return this.supportStaffs.stream(). 
-//				filter(s -> s.getDni().equals(dni)).
-//				findFirst();
-//
-//	}
 //
 //
 //
 
 
-	public VaxRepository getRepository() {
-		return repository;
-	}
+	
 
 
 	

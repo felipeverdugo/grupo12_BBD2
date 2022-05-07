@@ -27,7 +27,7 @@ public class VaccinationSchedule {
 	
 	
 	public Collection<Vaccine> getVaccines() {
-		return vaccines;
+		return this.vaccines;
 	}
 
 

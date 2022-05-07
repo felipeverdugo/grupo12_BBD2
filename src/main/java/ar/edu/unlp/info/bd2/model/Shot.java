@@ -21,32 +21,40 @@ import javax.persistence.Table;
 //@Table(name = "shots")
 //@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Shot {
+	
 //	@Id
 //	@GeneratedValue(strategy = GenerationType.AUTO)
 //	@Column(name = "Id")
 	private long id;
+	
 //	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 //	@JoinColumn(name = "patient_fk")
 	private Patient patient;
+	
 //	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 //	@JoinColumn(name = "vaccine_fk")
 	private Vaccine vaccine;
+	
 //	@Column(name = "Date")
 	private Date date;
+	
 //	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 //	@JoinColumn(name = "centre_fk")
 	private Centre centre;
+	
 //	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 //	@JoinColumn(name = "nurse_fk")
 	private Nurse nurse;
+	
 //	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 //	@JoinColumn(name = "shotCertificate_fk")
 	private ShotCertificate shotCertificate;
 	
 	
 	
-	
-	
+	public Shot() {
+		
+	}
 	public Shot(Patient patient, Vaccine vaccine, Date date, Centre centre, Nurse nurse) {
 		super();
 		this.patient = patient;
@@ -55,6 +63,10 @@ public class Shot {
 		this.centre = centre;
 		this.nurse = nurse;
 		this.shotCertificate = new ShotCertificate(date, id);
+	}
+	
+	public long getId() {
+		return id;
 	}
 	public Patient getPatient() {
 		return patient;
@@ -71,12 +83,8 @@ public class Shot {
 	public Nurse getNurse() {
 		return nurse;
 	}
-	public long getId() {
-		// TODO Auto-generated method stub
-		return id;
-	}
+	
 	public ShotCertificate getShotCertificate() {
-		// TODO Auto-generated method stub
 		return shotCertificate;
 	}
 	

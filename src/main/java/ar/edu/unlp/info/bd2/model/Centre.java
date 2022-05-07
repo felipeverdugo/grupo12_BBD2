@@ -23,33 +23,44 @@ public class Centre {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column
 	private long id;
+	
 	@Column
 	private String name;
-//	@OneToMany(cascade = CascadeType.ALL)
-//	@JoinColumn(name = "centre_id")
-//	private Collection<Staff> staffs = new ArrayList<Staff>();
+	
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "centre_id")
+	private Collection<Staff> staffs = new ArrayList<Staff>();
 
 	
 	
 
 	public Centre() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
-
+	
+	public Centre(String name) {
+		this.name = name;
+	}
 	
 
 
 	public String getName() {
 		return name;
 	}
-
-
-
-
-	public Centre(String name) {
-		this.name = name;
+	
+	public Collection<Staff> getStaffs() {
+		return staffs;
 	}
+	
+	public void addStaff(Staff staff) {
+		this.staffs.add(staff);
+	}
+	
+	
+	
+
+
+
+
 
 
 

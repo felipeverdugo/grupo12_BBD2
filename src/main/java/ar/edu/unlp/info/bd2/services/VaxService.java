@@ -28,16 +28,16 @@ public interface VaxService {
 	 */
 	Vaccine createVaccine(String name) throws VaxException;
 
-	/**
-	 *
-	 * @param patient paciente vacunado
-	 * @param vaccine vacuna aplicada
-	 * @param date fecha de aplicación
-	 * @param centre el centro de vacunación donde se aplicó
-	 * @param nurse enfermero/a que aplico la vacuna
-	 * @return el usuario creado
-	 * @throws VaxException
-	 */
+//	/**
+//	 *
+//	 * @param patient paciente vacunado
+//	 * @param vaccine vacuna aplicada
+//	 * @param date fecha de aplicación
+//	 * @param centre el centro de vacunación donde se aplicó
+//	 * @param nurse enfermero/a que aplico la vacuna
+//	 * @return el usuario creado
+//	 * @throws VaxException
+//	 */
 //	Shot createShot(Patient patient, Vaccine vaccine, Date date, Centre centre, Nurse nurse) ;
 
 	/**
@@ -71,34 +71,35 @@ public interface VaxService {
 //	 * @return el enfermero creado
 //	 * @throws VaxException
 //	 */
-//	Nurse createNurse(String dni, String fullName, Integer experience) ;
-//
-//	/**
-//	* @param dni el dni
-//	* @param fullName nombre completo
-//	* @param area el area o areas de trabajo
-//	* @return el personal de apoyo creado
-//	* @throws VaxException
-//	* */
-//	SupportStaff createSupportStaff(String dni, String fullName, String area) ;
-//
-//	/**
-//	 * @return el esquema nueva vacío
-//	 * @throws VaxException
-//	 * */
-//	VaccinationSchedule createVaccinationSchedule() ;
-//
-//	/**
-//	 * @param id el id del esquema
-//	 * @return el esquema de vacunación
-//	 * */
-//	VaccinationSchedule getVaccinationScheduleById(Long id) ;
-//
-//	/**
-//	 * @param name el nombre del centro a buscar
-//	 * @return el centro
-//	 * */
-//	Optional<Centre> getCentreByName(String name) ;
+	Nurse createNurse(String dni, String fullName, Integer experience) throws VaxException ;
+
+	/**
+	* @param dni el dni
+	* @param fullName nombre completo
+	* @param area el area o areas de trabajo
+	* @return el personal de apoyo creado
+	* @throws VaxException
+	* */
+	SupportStaff createSupportStaff(String dni, String fullName, String area) throws VaxException ;
+
+	/**
+	 * @return el esquema nueva vacío
+	 * @throws VaxException
+	 * */
+	VaccinationSchedule createVaccinationSchedule() throws VaxException ;
+
+	/**
+	 * @param id el id del esquema
+	 * @return el esquema de vacunación
+	 * */
+	VaccinationSchedule getVaccinationScheduleById(Long id) ;
+
+	/**
+	 * @param name el nombre del centro a buscar
+	 * @return el centro
+	 * @throws VaxException 
+	 * */
+	Optional<Centre> getCentreByName(String name) throws VaxException ;
 //
 //	/**
 //	 * @param staff el staff a actualizar
@@ -107,16 +108,16 @@ public interface VaxService {
 //	 */
 //	SupportStaff updateSupportStaff(SupportStaff staff) ;
 //
-//	/**
-//	 * @param centre el centre a actualizar
-//	 * @return el centre
-//	 * @throws VaxException 
-//	 */
-//	Centre updateCentre(Centre centre);
-//
-//	/**
-//	 * @param dni el dni del SupportStaff a buscar
-//	 * @return el SupportStaff
-//	 * */
-//	Optional<SupportStaff> getSupportStaffByDni(String dni);
+	/**
+	 * @param centre el centre a actualizar
+	 * @return el centre
+	 * @throws VaxException 
+	 */
+	Centre updateCentre(Centre centre);
+
+	/**
+	 * @param dni el dni del SupportStaff a buscar
+	 * @return el SupportStaff
+	 * */
+	Optional<SupportStaff> getSupportStaffByDni(String dni);
 }
