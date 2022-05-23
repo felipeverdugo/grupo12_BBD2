@@ -125,6 +125,10 @@ public class VaxRepository {
 		return this.sessionFactory.getCurrentSession().get(VaccinationSchedule.class, id);
 	}
 	
+	public void updateVaccinationSchedule(VaccinationSchedule vaccinationshedule) {
+		this.sessionFactory.getCurrentSession().update(vaccinationshedule);		
+	}
+	
 	
 //==================Meteodos Shot==============================================================================================	
 	
@@ -143,6 +147,19 @@ public class VaxRepository {
 		
 		return this.sessionFactory.getCurrentSession().createQuery("from ShotCertificate ss where ss.serialNumber='" + serial_number + "'").uniqueResultOptional();
 	}
+
+
+//==========================================================================================================================================
+//==========================================================================================================================================	
+	
+	public List<Patient> getAllPatients() {
+		return this.sessionFactory.getCurrentSession().createQuery("from Patient").list();
+	}
+	
+	
+
+
+	
 
 	
 }

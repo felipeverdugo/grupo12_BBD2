@@ -17,6 +17,7 @@ import ar.edu.unlp.info.bd2.model.Nurse;
 import ar.edu.unlp.info.bd2.model.Patient;
 import ar.edu.unlp.info.bd2.model.Shot;
 import ar.edu.unlp.info.bd2.model.ShotCertificate;
+import ar.edu.unlp.info.bd2.model.Staff;
 import ar.edu.unlp.info.bd2.model.SupportStaff;
 import ar.edu.unlp.info.bd2.model.VaccinationSchedule;
 import ar.edu.unlp.info.bd2.model.Vaccine;
@@ -57,7 +58,7 @@ public class VaxServiceImpl implements VaxService{
 		return this.repository.getPatientById((Long) serializablePatient);
 	}
 	
-	public Optional<Patient> getPatientByEmail(String email) throws VaxException {
+	public Optional<Patient> getPatientByEmail(String email) throws VaxException  {
 //		List<Patient> lista = this.repository.getPatientByEmail(email);
 //		return lista.stream(). 
 //		filter(v -> v.getEmail().equals(email)).
@@ -164,6 +165,9 @@ public class VaxServiceImpl implements VaxService{
 		return this.repository.getVaccinationScheduleById(id);
 	}
 	
+	public void updateVaccinationSchedule(VaccinationSchedule vaccinationshedule) {
+		this.repository.updateVaccinationSchedule(vaccinationshedule);
+	}
 
 	
 	
@@ -183,10 +187,74 @@ public class VaxServiceImpl implements VaxService{
 		
 	}
 	
-	
 	public Optional<ShotCertificate> getShotCertificateBySerialNumber(int serial_number) {
 		return this.repository.getShotCertificateBySerialNumber(serial_number);
 	}
+	
+	
+//========================================================================================================================================
+//========================================================================================================================================	
+	
+	
+
+	@Override
+	public List<Patient> getAllPatients() {
+		return this.repository.getAllPatients();
+	}
+
+	@Override
+	public List<Nurse> getNurseWithMoreThanNYearsExperience(int years) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Centre> getCentresTopNStaff(int n) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Centre getTopShotCentre() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Nurse> getNurseNotShot() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getLessEmployeesSupportStaffArea() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Staff> getStaffWithName(String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Vaccine> getUnappliedVaccines() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ShotCertificate> getShotCertificatesBetweenDates(Date startDate, Date endDate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+//	@Override
+//	public SupportStaff updateSupportStaff(SupportStaff staff) throws VaxException {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 	
 	
 

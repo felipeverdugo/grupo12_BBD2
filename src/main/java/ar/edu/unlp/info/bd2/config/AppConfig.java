@@ -7,8 +7,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class AppConfig {
-    
-	@Bean
+    @Bean
     public VaxService createService() {
         VaxRepository repository = this.createRepository();
         return new VaxServiceImpl(repository);
@@ -18,5 +17,4 @@ public class AppConfig {
     public VaxRepository createRepository() {
         return new VaxRepository();
     }
-    
 }

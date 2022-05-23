@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.Optional;
 
 
-public interface VaxService {
+public interface VaxService extends VaxStatisticsService{
 
 	/**
 	 *
@@ -15,12 +15,11 @@ public interface VaxService {
 	 * @param password clave con la que el usuario ingresa al sitio
 	 * @param dayOfBirth fecha de nacimiento del usuario
 	 * @return el usuario creado
-	 * @throws VaxException 
-
+	 * @throws VaxException
 	 */
-	 Patient createPatient(String email, String fullname, String password,Date dayOfBirth) throws VaxException ;
+	Patient createPatient(String email, String fullname, String password, Date dayOfBirth) throws VaxException;
 
-	/** 
+	/**
 	 *
 	 * @param name nombre de la vacuna
 	 * @return la vacuna creada
@@ -38,13 +37,13 @@ public interface VaxService {
 	 * @return el usuario creado
 	 * @throws VaxException
 	 */
-	Shot createShot(Patient patient, Vaccine vaccine, Date date, Centre centre, Nurse nurse) throws VaxException ;
+	Shot createShot(Patient patient, Vaccine vaccine, Date date, Centre centre, Nurse nurse) throws VaxException;
+	
 
 	/**
 	 * 
 	 * @param email email del usuario
 	 * @return
-	 * @throws VaxException 
 	 */
 	Optional<Patient> getPatientByEmail(String email) throws VaxException;
 
@@ -54,7 +53,7 @@ public interface VaxService {
 	 * @param name nombre de la vacuna
 	 * @return
 	 */
-	Optional<Vaccine> getVaccineByName(String name)throws VaxException;
+	Optional<Vaccine> getVaccineByName(String name) throws VaxException;
 
 	/**
 	 *
@@ -62,7 +61,7 @@ public interface VaxService {
 	 * @return el centro de vacunación nuevo
 	 * @throws VaxException
 	 */
-	Centre createCentre(String name) throws VaxException ;
+	Centre createCentre(String name) throws VaxException;
 
 	/**
 	 * @param dni el dni
@@ -71,7 +70,7 @@ public interface VaxService {
 	 * @return el enfermero creado
 	 * @throws VaxException
 	 */
-	Nurse createNurse(String dni, String fullName, Integer experience) throws VaxException ;
+	Nurse createNurse(String dni, String fullName, Integer experience) throws VaxException;
 
 	/**
 	* @param dni el dni
@@ -80,33 +79,32 @@ public interface VaxService {
 	* @return el personal de apoyo creado
 	* @throws VaxException
 	* */
-	SupportStaff createSupportStaff(String dni, String fullName, String area) throws VaxException ;
+	SupportStaff createSupportStaff(String dni, String fullName, String area) throws VaxException;
 
 	/**
 	 * @return el esquema nueva vacío
 	 * @throws VaxException
 	 * */
-	VaccinationSchedule createVaccinationSchedule() throws VaxException ;
+	VaccinationSchedule createVaccinationSchedule() throws VaxException;
 
 	/**
 	 * @param id el id del esquema
 	 * @return el esquema de vacunación
 	 * */
-	VaccinationSchedule getVaccinationScheduleById(Long id) ;
+	VaccinationSchedule getVaccinationScheduleById(Long id) throws VaxException;
 
 	/**
 	 * @param name el nombre del centro a buscar
 	 * @return el centro
-	 * @throws VaxException 
 	 * */
-	Optional<Centre> getCentreByName(String name) throws VaxException ;
+	Optional<Centre> getCentreByName(String name) throws VaxException;
 
 	/**
 	 * @param staff el staff a actualizar
 	 * @return el staff
 	 * @throws VaxException 
 	 */
-//	SupportStaff updateSupportStaff(SupportStaff staff) ;
+//	SupportStaff updateSupportStaff(SupportStaff staff) throws VaxException;
 
 	/**
 	 * @param centre el centre a actualizar
@@ -120,4 +118,6 @@ public interface VaxService {
 	 * @return el SupportStaff
 	 * */
 	Optional<SupportStaff> getSupportStaffByDni(String dni);
+
+	void updateVaccinationSchedule(VaccinationSchedule schedule001);
 }
