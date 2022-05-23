@@ -73,36 +73,35 @@ public class VaxServiceTestCase {
 		assertEquals("Constraint Violation",ex.getMessage());
 	}
 
-//	@Test
-//	public void testCreateShot() throws VaxException{
-//		Patient fede = this.service.createPatient("federico.orlando@info.unlp.edu.ar", "Federico Orlando", "pas$w0rd", dob);
-//		Vaccine az = this.service.createVaccine("AstraZeneca");
-//		Centre htal = this.service.createCentre("Hospital Español");
-//		Nurse nurse = this.service.createNurse("22314678","Mary Poppins", 2);
-//		Shot shot = this.service.createShot(fede,az,dob,htal,nurse);
-//		assertNotNull(shot.getId());
-//		assertEquals(fede, shot.getPatient());
-//		assertEquals(az, shot.getVaccine());
-//		assertEquals("Hospital Español", shot.getCentre().getName());
-//		assertEquals("Mary Poppins", shot.getNurse().getFullName());
-//		assertTrue(fede.getShots().contains(shot));
-//		assertNotNull(shot.getShotCertificate());
-//		assertNotNull(shot.getShotCertificate().getSerialNumber());
-//		
-//	}
+	@Test
+	public void testCreateShot() throws VaxException{
+		Patient fede = this.service.createPatient("federico.orlando@info.unlp.edu.ar", "Federico Orlando", "pas$w0rd", dob);
+		Vaccine az = this.service.createVaccine("AstraZeneca");
+		Centre htal = this.service.createCentre("Hospital Español");
+		Nurse nurse = this.service.createNurse("22314678","Mary Poppins", 2);
+		Shot shot = this.service.createShot(fede,az,dob,htal,nurse);
+		assertNotNull(shot.getId());
+		assertEquals(fede, shot.getPatient());
+		assertEquals(az, shot.getVaccine());
+		assertEquals("Hospital Español", shot.getCentre().getName());
+		assertEquals("Mary Poppins", shot.getNurse().getFullName());
+		assertTrue(fede.getShots().contains(shot));
+		assertNotNull(shot.getShotCertificate());
+		assertNotNull(shot.getShotCertificate().getSerialNumber());		
+	}
 
 	@Test
 	public void testCreateCentre() throws VaxException{
 		Centre nuevo = this.service.createCentre("Calle 2");
-		Nurse fabian = this.service.createNurse("43142333", "Fabian Ayala", 4);
+		Nurse fabian = this.service.createNurse("43142333", "Fabian Ayala", 4);		
 		nuevo.addStaff(fabian);
 		assertNotNull(nuevo.getId());
 		Optional<Centre> calle2Saved = this.service.getCentreByName("Calle 2");
-		if (!calle2Saved.isPresent()){throw new VaxException("No existe el centro con ese nombre");};
+		if (!calle2Saved.isPresent()){ throw new VaxException("No existe el centro con ese nombre"); };
 		Centre calle2 = calle2Saved.get();
 		assertEquals("Calle 2", calle2.getName());
 		assertTrue(calle2.getStaffs().contains(fabian));
-		assertTrue(fabian.getCentres().contains(calle2));
+		assertTrue(fabian.getCentres().contains(calle2));	
 	}
 
 	@Test
@@ -111,7 +110,7 @@ public class VaxServiceTestCase {
 		SupportStaff ana = this.service.createSupportStaff("23331324", "Ana Mederos", "Ingresos");
 		assertEquals(0,ana.getCentres().size());
 		h.addStaff(ana);
-		Centre italiano = this.service.updateCentre(h); //nose para q se usa
+		Centre italiano = this.service.updateCentre(h); 
 		Optional<SupportStaff> anaModified = this.service.getSupportStaffByDni(ana.getDni());
 		if (!anaModified.isPresent()){throw new VaxException("No existe el centro con ese nombre");};
 		SupportStaff AnaSaved = anaModified.get();

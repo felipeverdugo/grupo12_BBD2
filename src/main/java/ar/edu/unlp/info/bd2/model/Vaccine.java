@@ -1,12 +1,17 @@
 package ar.edu.unlp.info.bd2.model;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity(name = "Vaccine")
@@ -20,6 +25,10 @@ public class Vaccine {
 	@Column
 	private String name;
 	
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinColumn(name = "vaccines")
+	private List<VaccinationSchedule> vaccines_shedule = new ArrayList<VaccinationSchedule>();
+	
 	
 	public Vaccine() {
 	
@@ -29,8 +38,14 @@ public class Vaccine {
 		this.name = name;
 	}
 	
+	public long getId() {
+		return id;
+	}
 	
-	
+	public String getName() {
+		return name;
+	}
+
 	public void setId(long id) {
 		this.id = id;
 	}
@@ -45,16 +60,11 @@ public class Vaccine {
 	}
 
 
-
-
-
-	public String getName() {
-		return name;
+	public void addShedule(VaccinationSchedule shedule) {
+		this.vaccines_shedule.add(shedule);
 	}
 
-	public long getId() {
-		// TODO Auto-generated method stub
-		return id;
-	}
+
+
 	
 }

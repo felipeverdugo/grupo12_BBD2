@@ -16,6 +16,7 @@ import ar.edu.unlp.info.bd2.model.Centre;
 import ar.edu.unlp.info.bd2.model.Nurse;
 import ar.edu.unlp.info.bd2.model.Patient;
 import ar.edu.unlp.info.bd2.model.Shot;
+import ar.edu.unlp.info.bd2.model.ShotCertificate;
 import ar.edu.unlp.info.bd2.model.SupportStaff;
 import ar.edu.unlp.info.bd2.model.VaccinationSchedule;
 import ar.edu.unlp.info.bd2.model.Vaccine;
@@ -81,13 +82,14 @@ public class VaxServiceImpl implements VaxService{
 	}
 	
 	public Optional<Vaccine> getVaccineByName(String name) throws VaxException{
-//		List<Vaccine> lista = this.repository.getVaccineByName(name);
-//		return lista.stream(). 
-//				filter(v -> v.getName().equals(name)).
-//				findFirst();
 		return this.repository.getVaccineByName(name);
 	}
+	
 
+	
+	
+	
+	
 //==================Meteodos Centre=======================	
 	
 	public Centre createCentre(String name) throws VaxException  {			
@@ -101,12 +103,16 @@ public class VaxServiceImpl implements VaxService{
 		return this.repository.getCentreByName(name);
 	}
 	
-	//nose para q se usa
+	
 	@Override
-	public Centre updateCentre(Centre centre) {
-		return centre;
+	public Centre updateCentre(Centre centre) {		
+		return this.repository.updateCentre(centre);
 	}
+	
 
+	
+	
+	
 	
 //==================Meteodos Nurse=======================	
 
@@ -117,8 +123,12 @@ public class VaxServiceImpl implements VaxService{
 		
 		return this.repository.getNurseById((Long) serializableCentre);	
 	}
+	
 
-
+	
+	
+	
+	
 //==================Meteodos SupportStaff=======================
 
 	@Override
@@ -133,9 +143,12 @@ public class VaxServiceImpl implements VaxService{
 	public Optional<SupportStaff> getSupportStaffByDni(String dni) {
 		return this.repository.getSupportStaffByDni(dni);
 	}
+	
 
-
-		
+	
+	
+	
+	
 //==================Meteodos VaccinationSchedule=======================
 
 	public VaccinationSchedule createVaccinationSchedule() throws VaxException {
@@ -145,82 +158,35 @@ public class VaxServiceImpl implements VaxService{
 		return this.repository.getVaccinationScheduleById((Long) serializableCentre);
 	}
 	
+	
 	public VaccinationSchedule getVaccinationScheduleById(Long id) {
 		
 		return this.repository.getVaccinationScheduleById(id);
 	}
 	
+
+	
+	
+	
+	
 //==================Meteodos Shot=======================		
-//
-//
-//	@Override
-//	public Shot createShot(Patient patient, Vaccine vaccine, Date date, Centre centre, Nurse nurse) {
-//		Shot shot = new Shot(patient, vaccine, date, centre, nurse);
-//		patient.addShot(shot);
-//		return this.repository.createShot(shot);
-//	}
-//
-//
-//
-//
-//
-//	@Override
-//	public VaccinationSchedule createVaccinationSchedule()  {
-//		return new VaccinationSchedule();
-//	}
-//
-//
-//
-//
-//	@Override
-//	public VaccinationSchedule getVaccinationScheduleById(Long id)  {
-//		return this.vaccinationSchedules.stream(). 
-//				filter(v -> v.getId().equals(id)).
-//				findFirst().orElse(null);
-//
-//	}
-//
-//
-//
-//
-//	@Override
-//	public Optional<Centre> getCentreByName(String name)  {
-//		return this.centres.stream(). 
-//				filter(c -> c.getName().equals(name)).
-//				findFirst();
-//	
-//	}
-//
-//
-//
-//
-//	@Override
-//	public SupportStaff updateSupportStaff(SupportStaff staff)  {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-//
-//
-//
-//
-//	@Override
-//	public Centre updateCentre(Centre centre) {
-//		return centre;
-//	}
-//
-//
-//
-//
-//
-//
-//
 
 
-	
-
-
+	@Override
+	public Shot createShot(Patient patient, Vaccine vaccine, Date date, Centre centre, Nurse nurse) throws VaxException {
+		Shot shot = new Shot(patient, vaccine, date, centre, nurse);
+		patient.addShot(shot);
+		
+		Serializable serializableCentre = this.repository.create(shot);
+		
+		return this.repository.getShotById((Long) serializableCentre);	
+		
+	}
 	
 	
+	public Optional<ShotCertificate> getShotCertificateBySerialNumber(int serial_number) {
+		return this.repository.getShotCertificateBySerialNumber(serial_number);
+	}
 	
 	
 

@@ -15,6 +15,7 @@ import ar.edu.unlp.info.bd2.model.Centre;
 import ar.edu.unlp.info.bd2.model.Nurse;
 import ar.edu.unlp.info.bd2.model.Patient;
 import ar.edu.unlp.info.bd2.model.Shot;
+import ar.edu.unlp.info.bd2.model.ShotCertificate;
 import ar.edu.unlp.info.bd2.model.SupportStaff;
 import ar.edu.unlp.info.bd2.model.VaccinationSchedule;
 import ar.edu.unlp.info.bd2.model.Vaccine;
@@ -45,18 +46,19 @@ public class VaxRepository {
 	}
 	
 	
-//==================Meteodos Paciente=======================
+//==================Meteodos Paciente===========================================================================================
 	
 	public Patient getPatientById(Long id) {	
 		return this.sessionFactory.getCurrentSession().get(Patient.class, id);
 	}
+	
 	
 	public Optional<Patient> getPatientByEmail(String email)throws VaxException{	
 		return this.sessionFactory.getCurrentSession().createQuery("from Patient pa where pa.email='" + email + "'").uniqueResultOptional(); 
 	}
 	
 	
-//==================Meteodos Vaccine=======================
+//==================Meteodos Vaccine==============================================================================================
 	
 	public Vaccine getVaccineById(Long id) {
 		return this.sessionFactory.getCurrentSession().get(Vaccine.class, id);
@@ -75,27 +77,33 @@ public class VaxRepository {
 	}
 	
 	
-//==================Meteodos Centre=======================	
+//==================Meteodos Centre=============================================================================================	
 	
 	public Centre getCentreById(Long id) {
 
 		return this.sessionFactory.getCurrentSession().get(Centre.class, id);
 	}
+	
 	public Optional<Centre> getCentreByName(String name) throws VaxException{
 
 		return this.sessionFactory.getCurrentSession().createQuery("from Centre ce where ce.name='" + name + "'").uniqueResultOptional();
 	}
 	
+	public Centre updateCentre(Centre centre) {
+
+		this.sessionFactory.getCurrentSession().update(centre);
+		return this.getCentreById(centre.getId());
+	}
 	
 
-//==================Meteodos Nurse=======================	
+//==================Meteodos Nurse=============================================================================================		
 	
 	public Nurse getNurseById(Long id) {
 
 		return this.sessionFactory.getCurrentSession().get(Nurse.class, id);
 	}
 	
-//==================Meteodos SupportStaff=======================	
+//==================Meteodos SupportStaff======================================================================================	
 	
 	public SupportStaff getSupportStaffById(Long id) {
 
@@ -110,12 +118,31 @@ public class VaxRepository {
 	
 	
 	
-//==================Meteodos VaccinationSchedule=======================
+//==================Meteodos VaccinationSchedule==============================================================================
 	
 	public VaccinationSchedule getVaccinationScheduleById(Long id) {
 
 		return this.sessionFactory.getCurrentSession().get(VaccinationSchedule.class, id);
 	}
 	
+	
+//==================Meteodos Shot==============================================================================================	
+	
+	public Shot getShotById(Long id) {
+
+		return this.sessionFactory.getCurrentSession().get(Shot.class, id);
+	}
+	
+
+
+
+//==================Meteodos ShotCerificate==============================================================================================
+
+
+	public Optional<ShotCertificate> getShotCertificateBySerialNumber(int serial_number) {
+		
+		return this.sessionFactory.getCurrentSession().createQuery("from ShotCertificate ss where ss.serialNumber='" + serial_number + "'").uniqueResultOptional();
+	}
+
 	
 }

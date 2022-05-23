@@ -1,18 +1,23 @@
 package ar.edu.unlp.info.bd2.model;
 
+import java.util.ArrayList;
+
 //import java.util.ArrayList;
 
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
+//import java.util.UUID;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
+//import javax.persistence.Inheritance;
+//import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
@@ -21,7 +26,6 @@ import javax.persistence.Table;
 
 @Entity(name = "Patient")
 @Table(name = "patient")
-
 public class Patient{
 	
 	@Id
@@ -38,7 +42,8 @@ public class Patient{
 	@Column
 	private Date dayOfBirth;
 
-//	private List<Shot> shots = new ArrayList<Shot>();
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "patient")
+	private List<Shot> shots = new ArrayList<Shot>();
 	
 	
 	
@@ -75,9 +80,9 @@ public class Patient{
 		return dayOfBirth;
 	}
 
-//	public List<Shot> getShots() {
-//		return shots;
-//	}
+	public List<Shot> getShots() {
+		return shots;
+	}
 	
 	public void setId(long id) {
 		this.id = id;
@@ -98,10 +103,10 @@ public class Patient{
 	public void setDayOfBirth(Date dayOfBirth) {
 		this.dayOfBirth = dayOfBirth;
 	}
-
-//	public void setShots(List<Shot> shots) {
-//		this.shots = shots;
-//	}
+	
+	public void addShot(Shot shot) {
+		this.shots.add(shot);
+	}
 	
 	@Override
 	public String toString() {
@@ -109,10 +114,7 @@ public class Patient{
 				+ ", dayOfBirth=" + dayOfBirth + "]";
 	}
 
-//	public void addShot(Shot shot) {
-//		this.shots.add(shot);
-//
-//	}
+	
 
 
 

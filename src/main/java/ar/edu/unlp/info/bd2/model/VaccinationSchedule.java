@@ -1,47 +1,44 @@
 package ar.edu.unlp.info.bd2.model;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-//@Entity
-//@Table(name = "VaccinationSchedule")
-//@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Entity(name = "VaccinationSchedule")
+@Table(name = "vaccinationSchedule")
 public class VaccinationSchedule {
 	
-//	@Id
-//	@GeneratedValue
-	private long idSchedule;
-	private Collection<Vaccine> vaccines = new ArrayList<Vaccine>();
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_shedule")
+	private long id;
+	
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy="vaccines_shedule")
+    private List<Vaccine> vaccines;
 
-	public VaccinationSchedule() {
-		super();
+	public VaccinationSchedule() {		
+		this.vaccines = new ArrayList<Vaccine>();
 	}
 
-	
-	
-	public Collection<Vaccine> getVaccines() {
+	public List<Vaccine> getVaccines() {
 		return this.vaccines;
 	}
 
-
-
 	public void addVaccine(Vaccine vaccine) {
 		this.vaccines.add(vaccine);
-		
+		vaccine.addShedule(this);
 	}
 
-
-
 	public Long getId() {
-		// TODO Auto-generated method stub
-		return idSchedule;
+		return id;
 	}
 	
 	

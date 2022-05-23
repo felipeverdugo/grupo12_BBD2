@@ -6,50 +6,47 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 
-//@Entity(name = "Shot")
-//@Table(name = "shots")
-//@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Entity(name = "Shot")
+@Table(name = "shots")
 public class Shot {
 	
-//	@Id
-//	@GeneratedValue(strategy = GenerationType.AUTO)
-//	@Column(name = "Id")
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "Id")
 	private long id;
 	
-//	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//	@JoinColumn(name = "patient_fk")
+	@ManyToOne
+    @JoinColumn(name="patient_id")
 	private Patient patient;
 	
-//	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//	@JoinColumn(name = "vaccine_fk")
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "vaccine_id")
 	private Vaccine vaccine;
-	
-//	@Column(name = "Date")
-	private Date date;
-	
-//	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//	@JoinColumn(name = "centre_fk")
+			
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "centre_id")
 	private Centre centre;
 	
-//	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//	@JoinColumn(name = "nurse_fk")
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "nurse_id")
 	private Nurse nurse;
 	
-//	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//	@JoinColumn(name = "shotCertificate_fk")
-	private ShotCertificate shotCertificate;
+	@Column(name = "Date")
+	private Date date;
 	
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "shotCertificate_id")
+	private ShotCertificate shotCertificate;	
 	
 	
 	public Shot() {
@@ -62,7 +59,7 @@ public class Shot {
 		this.date = date;
 		this.centre = centre;
 		this.nurse = nurse;
-		this.shotCertificate = new ShotCertificate(date, id);
+		this.shotCertificate = new ShotCertificate(date);
 	}
 	
 	public long getId() {

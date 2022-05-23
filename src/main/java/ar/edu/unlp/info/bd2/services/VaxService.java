@@ -28,17 +28,17 @@ public interface VaxService {
 	 */
 	Vaccine createVaccine(String name) throws VaxException;
 
-//	/**
-//	 *
-//	 * @param patient paciente vacunado
-//	 * @param vaccine vacuna aplicada
-//	 * @param date fecha de aplicación
-//	 * @param centre el centro de vacunación donde se aplicó
-//	 * @param nurse enfermero/a que aplico la vacuna
-//	 * @return el usuario creado
-//	 * @throws VaxException
-//	 */
-//	Shot createShot(Patient patient, Vaccine vaccine, Date date, Centre centre, Nurse nurse) ;
+	/**
+	 *
+	 * @param patient paciente vacunado
+	 * @param vaccine vacuna aplicada
+	 * @param date fecha de aplicación
+	 * @param centre el centro de vacunación donde se aplicó
+	 * @param nurse enfermero/a que aplico la vacuna
+	 * @return el usuario creado
+	 * @throws VaxException
+	 */
+	Shot createShot(Patient patient, Vaccine vaccine, Date date, Centre centre, Nurse nurse) throws VaxException ;
 
 	/**
 	 * 
@@ -47,15 +47,15 @@ public interface VaxService {
 	 * @throws VaxException 
 	 */
 	Optional<Patient> getPatientByEmail(String email) throws VaxException;
-//
-//
-//	/**
-//	 *
-//	 * @param name nombre de la vacuna
-//	 * @return
-//	 */
+
+
+	/**
+	 *
+	 * @param name nombre de la vacuna
+	 * @return
+	 */
 	Optional<Vaccine> getVaccineByName(String name)throws VaxException;
-//
+
 	/**
 	 *
 	 * @param name nombre del centro de vacunación
@@ -63,14 +63,14 @@ public interface VaxService {
 	 * @throws VaxException
 	 */
 	Centre createCentre(String name) throws VaxException ;
-//
-//	/**
-//	 * @param dni el dni
-//	 * @param fullName nombre del/la enfermero/a
-//	 * @param experience experiencia en años
-//	 * @return el enfermero creado
-//	 * @throws VaxException
-//	 */
+
+	/**
+	 * @param dni el dni
+	 * @param fullName nombre del/la enfermero/a
+	 * @param experience experiencia en años
+	 * @return el enfermero creado
+	 * @throws VaxException
+	 */
 	Nurse createNurse(String dni, String fullName, Integer experience) throws VaxException ;
 
 	/**
@@ -100,14 +100,14 @@ public interface VaxService {
 	 * @throws VaxException 
 	 * */
 	Optional<Centre> getCentreByName(String name) throws VaxException ;
-//
-//	/**
-//	 * @param staff el staff a actualizar
-//	 * @return el staff
-//	 * @throws VaxException 
-//	 */
+
+	/**
+	 * @param staff el staff a actualizar
+	 * @return el staff
+	 * @throws VaxException 
+	 */
 //	SupportStaff updateSupportStaff(SupportStaff staff) ;
-//
+
 	/**
 	 * @param centre el centre a actualizar
 	 * @return el centre
