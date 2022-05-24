@@ -7,7 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Entity()
+@Entity(name = "Nurse")
 @DiscriminatorValue("Nurse")
 public class Nurse extends Staff{
 		
@@ -18,6 +18,10 @@ public class Nurse extends Staff{
 	public Nurse(String dni, String fullName, Integer experience) {
 		super(dni,fullName);
 		this.experience = experience;
+	}
+	
+	public Nurse() {
+		super();
 	}
 
 	public Integer getExperience() {

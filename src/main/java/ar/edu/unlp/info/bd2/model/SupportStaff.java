@@ -21,6 +21,10 @@ public class SupportStaff extends Staff{
 		super(dni,fullName);
 		this.area = area;
 	}
+	
+	public SupportStaff() {
+		
+	}
 
 
 	public String getArea() {

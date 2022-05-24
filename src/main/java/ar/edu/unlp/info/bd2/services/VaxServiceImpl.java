@@ -59,10 +59,6 @@ public class VaxServiceImpl implements VaxService{
 	}
 	
 	public Optional<Patient> getPatientByEmail(String email) throws VaxException  {
-//		List<Patient> lista = this.repository.getPatientByEmail(email);
-//		return lista.stream(). 
-//		filter(v -> v.getEmail().equals(email)).
-//		findFirst();
 		return this.repository.getPatientByEmail(email);
 	}
 	
@@ -204,50 +200,42 @@ public class VaxServiceImpl implements VaxService{
 
 	@Override
 	public List<Nurse> getNurseWithMoreThanNYearsExperience(int years) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.repository.getNurseWithMoreThanNYearsExperience(years);
 	}
 
 	@Override
 	public List<Centre> getCentresTopNStaff(int n) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.repository.getCentresTopNStaff(n);
 	}
 
 	@Override
 	public Centre getTopShotCentre() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.repository.getTopShotCentre();
 	}
 
 	@Override
 	public List<Nurse> getNurseNotShot() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.repository.getNurseNotShot();
 	}
 
 	@Override
 	public String getLessEmployeesSupportStaffArea() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.repository.getLessEmployeesSupportStaffArea().getArea();
 	}
 
 	@Override
 	public List<Staff> getStaffWithName(String name) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.repository.getStaffWithName(name);
 	}
 
 	@Override
 	public List<Vaccine> getUnappliedVaccines() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.repository.getUnappliedVaccines();
 	}
 
 	@Override
 	public List<ShotCertificate> getShotCertificatesBetweenDates(Date startDate, Date endDate) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.repository.getShotCertificatesBetweenDates(startDate, endDate);
 	}
 
 //	@Override

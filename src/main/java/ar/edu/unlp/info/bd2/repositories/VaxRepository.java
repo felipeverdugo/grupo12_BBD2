@@ -1,6 +1,7 @@
 package ar.edu.unlp.info.bd2.repositories;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,6 +17,7 @@ import ar.edu.unlp.info.bd2.model.Nurse;
 import ar.edu.unlp.info.bd2.model.Patient;
 import ar.edu.unlp.info.bd2.model.Shot;
 import ar.edu.unlp.info.bd2.model.ShotCertificate;
+import ar.edu.unlp.info.bd2.model.Staff;
 import ar.edu.unlp.info.bd2.model.SupportStaff;
 import ar.edu.unlp.info.bd2.model.VaccinationSchedule;
 import ar.edu.unlp.info.bd2.model.Vaccine;
@@ -155,7 +157,62 @@ public class VaxRepository {
 	public List<Patient> getAllPatients() {
 		return this.sessionFactory.getCurrentSession().createQuery("from Patient").list();
 	}
+
+
+	public List<Nurse> getNurseWithMoreThanNYearsExperience(int years) {
+		return this.sessionFactory.getCurrentSession().createQuery("from Nurse n where n.experience > '" + years + "'").list();
+	}
+
+
 	
+	public List<Centre> getCentresTopNStaff(int n) {
+		String query = "Select c from Centre c group by c.id order by size(c.staffs) desc";
+		return this.sessionFactory.getCurrentSession().createQuery(query).setMaxResults(n).getResultList();
+	}
+
+
+	public Centre getTopShotCentre() {
+		String query = "Select s.centre from Shot s group by s.centre order by count(s.centre) desc";
+		return (Centre) this.sessionFactory.getCurrentSession().createQuery(query).setMaxResults(1).uniqueResult();
+	}
+
+
+	public List<Nurse> getNurseNotShot() {
+		String query = "select n from Nurse n left join Shot s on n.id = s.nurse where s.nurse is null";
+		return this.sessionFactory.getCurrentSession().createQuery(query).list();
+	}
+
+
+	public SupportStaff getLessEmployeesSupportStaffArea() {
+		String query = "from SupportStaff s group by s.area order by count(s.area) asc";
+		return (SupportStaff) this.sessionFactory.getCurrentSession().createQuery(query).setMaxResults(1).uniqueResult();
+	}
+
+
+	public List<Staff> getStaffWithName(String name) {
+		String query = "from Staff where fullname like '"+ '%' + name + '%' +"'";
+		return this.sessionFactory.getCurrentSession().createQuery(query).getResultList();
+	}
+
+
+	public List<Vaccine> getUnappliedVaccines() {
+		String query = "select v from Vaccine v left join Shot s on v.id = s.vaccine where s.vaccine is null ";
+		return this.sessionFactory.getCurrentSession().createQuery(query).list();
+	}
+
+
+	public List<ShotCertificate> getShotCertificatesBetweenDates(Date startDate, Date endDate) {
+		String query = "from ShotCertificate where date between '" + startDate + "' and '" + endDate +"' ";
+		return this.sessionFactory.getCurrentSession()
+				.createQuery("FROM ShotCertificate AS sc WHERE sc.date BETWEEN :stDate AND :edDate ")
+				.setParameter("stDate", startDate)
+				.setParameter("edDate", endDate)
+				.list();
+	}
+	
+
+	
+
 	
 
 

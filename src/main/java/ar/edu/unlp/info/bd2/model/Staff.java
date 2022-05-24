@@ -47,6 +47,10 @@ public abstract class Staff {
 		this.fullName = fullName;
 	}
 	
+	public Staff() {
+		
+	}
+	
 	public String getDni() {
 		return dni;
 	}
