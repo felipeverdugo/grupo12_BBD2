@@ -30,7 +30,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @Transactional
 @Rollback(true)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-
 public class VaxStatisticsTestCase {
     @Autowired
     DBInitializer initializer;

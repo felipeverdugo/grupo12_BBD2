@@ -220,7 +220,7 @@ public class VaxServiceImpl implements VaxService{
 
 	@Override
 	public String getLessEmployeesSupportStaffArea() {
-		return this.repository.getLessEmployeesSupportStaffArea().getArea();
+		return this.repository.getLessEmployeesSupportStaffArea();
 	}
 
 	@Override

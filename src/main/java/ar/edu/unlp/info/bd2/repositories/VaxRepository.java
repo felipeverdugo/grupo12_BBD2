@@ -183,14 +183,14 @@ public class VaxRepository {
 	}
 
 
-	public SupportStaff getLessEmployeesSupportStaffArea() {
-		String query = "from SupportStaff s group by s.area order by count(s.area) asc";
-		return (SupportStaff) this.sessionFactory.getCurrentSession().createQuery(query).setMaxResults(1).uniqueResult();
+	public String getLessEmployeesSupportStaffArea() {
+		String query = "select s.area from SupportStaff s group by s.area order by count(s.area) asc";
+		return (String) this.sessionFactory.getCurrentSession().createQuery(query).setMaxResults(1).uniqueResult();
 	}
 
 
 	public List<Staff> getStaffWithName(String name) {
-		String query = "from Staff where fullname like '"+ '%' + name + '%' +"'";
+		String query = "from Staff where nombre_completo like '"+ '%' + name + '%' +"'";
 		return this.sessionFactory.getCurrentSession().createQuery(query).getResultList();
 	}
 

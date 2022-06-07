@@ -11,7 +11,7 @@ import javax.persistence.Id;
 @DiscriminatorValue("Nurse")
 public class Nurse extends Staff{
 		
-	@Column
+	@Column(name = "experiencia")
 	private Integer experience;
 	
 	

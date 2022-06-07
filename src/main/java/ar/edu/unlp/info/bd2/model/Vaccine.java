@@ -14,20 +14,21 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-@Entity(name = "Vaccine")
-@Table(name = "Vaccine")
+@Entity
+@Table(name = "vaccines")
 public class Vaccine {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column
+	@Column(nullable = false)
 	private long id;
-	@Column
+	
+	@Column(name = "nombre", nullable = false)
 	private String name;
 	
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinColumn(name = "vaccines")
-	private List<VaccinationSchedule> vaccines_shedule = new ArrayList<VaccinationSchedule>();
+	private List<VaccinationSchedule> vaccines_shedules = new ArrayList<VaccinationSchedule>();
 	
 	
 	public Vaccine() {
@@ -61,7 +62,7 @@ public class Vaccine {
 
 
 	public void addShedule(VaccinationSchedule shedule) {
-		this.vaccines_shedule.add(shedule);
+		this.vaccines_shedules.add(shedule);
 	}
 
 

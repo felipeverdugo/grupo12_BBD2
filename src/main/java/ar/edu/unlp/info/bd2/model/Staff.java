@@ -23,17 +23,18 @@ import javax.persistence.Table;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "staff_type", discriminatorType = DiscriminatorType.STRING)
+@Table(name = "staffs")
 public abstract class Staff {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column
+	@Column(nullable = false)
 	private long id;
 	
-	@Column
+	@Column(nullable = false)
 	private String dni;
 	
-	@Column
+	@Column(name = "nombre_completo")
 	private String fullName;
 	
 	

@@ -12,17 +12,19 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-@Entity(name = "VaccinationSchedule")
-@Table(name = "vaccinationSchedule")
+@Entity
+@Table(name = "vaccinationSchedules")
 public class VaccinationSchedule {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_shedule")
+	@Column(name = "id_shedule", nullable = false)
 	private long id;
 	
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy="vaccines_shedule")
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy="vaccines_shedules" )
     private List<Vaccine> vaccines;
+	
+	
 
 	public VaccinationSchedule() {		
 		this.vaccines = new ArrayList<Vaccine>();

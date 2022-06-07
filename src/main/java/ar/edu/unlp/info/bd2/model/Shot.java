@@ -16,32 +16,32 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 
-@Entity(name = "Shot")
+@Entity
 @Table(name = "shots")
 public class Shot {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "Id")
+	@Column(name = "Id", nullable = false)
 	private long id;
 	
 	@ManyToOne
-    @JoinColumn(name="patient_id")
+    @JoinColumn(name="patient_id", nullable = false)
 	private Patient patient;
 	
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name = "vaccine_id")
+	@JoinColumn(name = "vaccine_id",nullable = false)
 	private Vaccine vaccine;
 			
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name = "centre_id")
+	@JoinColumn(name = "centre_id",nullable = false)
 	private Centre centre;
 	
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name = "nurse_id")
+	@JoinColumn(name = "nurse_id",nullable = false)
 	private Nurse nurse;
 	
-	@Column(name = "Date")
+	@Column(name = "fecha_creacion")
 	private Date date;
 	
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

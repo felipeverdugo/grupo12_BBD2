@@ -10,19 +10,19 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 
-@Entity(name = "ShotCertificate")
-@Table(name = "shotCertificate")
+@Entity
+@Table(name = "shotCertificates")
 public class ShotCertificate {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column
+	@Column(nullable = false)
 	private long id;
 	
-	@Column()
+	@Column(name = "fecha_creacion")
 	private Date date;
 	
-	@Column
+	@Column(name = "numero_de_serie", nullable = false)
 	private long serialNumber;
 	//falta validar q no se repita
 	

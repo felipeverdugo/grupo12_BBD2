@@ -7,13 +7,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Entity(name = "SupportStaff")
+@Entity
 @DiscriminatorValue("SupportStaff")
 public class SupportStaff extends Staff{
 	
 
 	
-	@Column
+	@Column(name = "area")
 	private String area;
 
 	

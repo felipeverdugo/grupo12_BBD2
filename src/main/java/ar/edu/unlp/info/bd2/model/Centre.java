@@ -17,23 +17,24 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 
-@Entity(name = "Centre")
-@Table(name = "centre")
+@Entity
+@Table(name = "centres")
 public class Centre {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column
+	@Column(nullable = false)
 	private long id;
 	
-	@Column
+	@Column(name = "nombre", nullable = false)
 	private String name;
 	
 	@ManyToMany()
-	@JoinTable(name="centre_staffs")
+	@JoinTable(name="centres_staffs",
+			   joinColumns = @JoinColumn(name = "centres_id"), 
+			   inverseJoinColumns = @JoinColumn(name = "staffs_id")
+	)
 	private Collection<Staff> staffs = new ArrayList<Staff>();
-
-	
 	
 
 	public Centre() {
@@ -55,7 +56,7 @@ public class Centre {
 		return staffs;
 	}
 	
-	public void setIdCentre(long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	
@@ -63,17 +64,16 @@ public class Centre {
 		this.name = name;
 	}
 	
-//	public void setStaffs(Collection<Staff> staffs) {
-//		this.staffs = staffs;
-//	}
-
+	public void setStaffs(Collection<Staff> staffs) {
+		this.staffs = staffs;
+	}
 	
 	public void addStaff(Staff staff) {
 		this.staffs.add(staff);
 		staff.addSavedCentre(this);
 	}
 	
-	protected void addSavedStaff(Staff staff) {
+	public void addSavedStaff(Staff staff) {
 		this.staffs.add(staff);
 	}
 

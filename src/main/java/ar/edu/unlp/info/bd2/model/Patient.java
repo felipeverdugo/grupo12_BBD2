@@ -24,22 +24,22 @@ import javax.persistence.Table;
 
 
 
-@Entity(name = "Patient")
-@Table(name = "patient")
+@Entity
+@Table(name = "patients")
 public class Patient{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column
+	@Column(nullable = false)
 	private long id;
 	
-	@Column
+	@Column(name = "correo", nullable = false)
 	private String email;
-	@Column
+	@Column(name = "nombre_completo", nullable = false)
 	private String fullName;
-	@Column
+	@Column(name = "contraseña", nullable = false)
 	private String password;
-	@Column
+	@Column(name = "fecha_nacimiento")
 	private Date dayOfBirth;
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "patient")
