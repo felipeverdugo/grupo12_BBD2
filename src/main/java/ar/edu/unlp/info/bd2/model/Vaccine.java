@@ -26,8 +26,7 @@ public class Vaccine {
 	@Column(name = "nombre", nullable = false)
 	private String name;
 	
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinColumn(name = "vaccines")
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "vaccines")
 	private List<VaccinationSchedule> vaccines_shedules = new ArrayList<VaccinationSchedule>();
 	
 	
@@ -53,6 +52,14 @@ public class Vaccine {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public List<VaccinationSchedule> getVaccines_shedules() {
+		return vaccines_shedules;
+	}
+
+	public void setVaccines_shedules(List<VaccinationSchedule> vaccines_shedules) {
+		this.vaccines_shedules = vaccines_shedules;
 	}
 
 	@Override

@@ -1,14 +1,11 @@
 package ar.edu.unlp.info.bd2.services;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-import org.hibernate.exception.ConstraintViolationException;
-import org.hibernate.service.spi.InjectService;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -46,7 +43,8 @@ public class VaxServiceImpl implements VaxService{
 	
 
 //==================Meteodos Patient=======================
-
+	
+	@Transactional
 	public Patient createPatient(String email, String fullname, String password, Date dayOfBirth) throws VaxException{
 		Optional<Patient> aux = this.repository.getPatientByEmail(email);
 		if (aux.isPresent()) {
@@ -67,6 +65,7 @@ public class VaxServiceImpl implements VaxService{
 
 //==================Meteodos Vaccine=======================
 	
+	@Transactional
 	public Vaccine createVaccine(String name) throws VaxException {
 		Optional<Vaccine> aux = this.repository.getVaccineByName(name);
 		if (aux.isPresent()) {
@@ -102,8 +101,10 @@ public class VaxServiceImpl implements VaxService{
 	
 	
 	@Override
-	public Centre updateCentre(Centre centre) {		
-		return this.repository.updateCentre(centre);
+	@Transactional
+	public Centre updateCentre(Centre centre) throws VaxException{		
+		this.repository.update(centre);
+		return this.repository.getCentreById(centre.getId());
 	}
 	
 
@@ -141,7 +142,12 @@ public class VaxServiceImpl implements VaxService{
 		return this.repository.getSupportStaffByDni(dni);
 	}
 	
-
+	@Override
+	@Transactional
+	public SupportStaff updateSupportStaff(SupportStaff staff) throws VaxException {
+		this.repository.update(staff);
+		return this.repository.getSupportStaffById(staff.getId());
+	}
 	
 	
 	
@@ -161,8 +167,9 @@ public class VaxServiceImpl implements VaxService{
 		return this.repository.getVaccinationScheduleById(id);
 	}
 	
+	@Transactional
 	public void updateVaccinationSchedule(VaccinationSchedule vaccinationshedule) {
-		this.repository.updateVaccinationSchedule(vaccinationshedule);
+		this.repository.update(vaccinationshedule);
 	}
 
 	
@@ -238,11 +245,8 @@ public class VaxServiceImpl implements VaxService{
 		return this.repository.getShotCertificatesBetweenDates(startDate, endDate);
 	}
 
-//	@Override
-//	public SupportStaff updateSupportStaff(SupportStaff staff) throws VaxException {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
+	
+
 	
 	
 

@@ -47,11 +47,18 @@ public class VaxRepository {
 		}
 	}
 	
+	public void update(Object aux) {		
+		this.sessionFactory.getCurrentSession().update(aux);
+		System.out.println(aux.toString());
+	}
+	
+	
 	
 //==================Meteodos Paciente===========================================================================================
 	
 	public Patient getPatientById(Long id) {	
-		return this.sessionFactory.getCurrentSession().get(Patient.class, id);
+		
+		return (Patient) this.sessionFactory.getCurrentSession().createQuery("from Patient where id = :id").setParameter("id", id).getSingleResult();
 	}
 	
 	
@@ -63,7 +70,7 @@ public class VaxRepository {
 //==================Meteodos Vaccine==============================================================================================
 	
 	public Vaccine getVaccineById(Long id) {
-		return this.sessionFactory.getCurrentSession().get(Vaccine.class, id);
+		return (Vaccine) this.sessionFactory.getCurrentSession().createQuery("from Vaccine where id = :id").setParameter("id", id).getSingleResult();
 	}
 	
 	public Optional<Vaccine> getVaccineByName(String name) throws VaxException{	
@@ -82,8 +89,7 @@ public class VaxRepository {
 //==================Meteodos Centre=============================================================================================	
 	
 	public Centre getCentreById(Long id) {
-
-		return this.sessionFactory.getCurrentSession().get(Centre.class, id);
+		return (Centre) this.sessionFactory.getCurrentSession().createQuery("from Centre where id = :id").setParameter("id", id).getSingleResult();
 	}
 	
 	public Optional<Centre> getCentreByName(String name) throws VaxException{
@@ -91,25 +97,17 @@ public class VaxRepository {
 		return this.sessionFactory.getCurrentSession().createQuery("from Centre ce where ce.name='" + name + "'").uniqueResultOptional();
 	}
 	
-	public Centre updateCentre(Centre centre) {
-
-		this.sessionFactory.getCurrentSession().update(centre);
-		return this.getCentreById(centre.getId());
-	}
-	
 
 //==================Meteodos Nurse=============================================================================================		
 	
 	public Nurse getNurseById(Long id) {
-
-		return this.sessionFactory.getCurrentSession().get(Nurse.class, id);
+		return (Nurse) this.sessionFactory.getCurrentSession().createQuery("from Nurse where id = :id").setParameter("id", id).getSingleResult();
 	}
 	
 //==================Meteodos SupportStaff======================================================================================	
 	
 	public SupportStaff getSupportStaffById(Long id) {
-
-		return this.sessionFactory.getCurrentSession().get(SupportStaff.class, id);
+		return (SupportStaff) this.sessionFactory.getCurrentSession().createQuery("from SupportStaff where id = :id").setParameter("id", id).getSingleResult();
 	}
 	
 	
@@ -123,20 +121,14 @@ public class VaxRepository {
 //==================Meteodos VaccinationSchedule==============================================================================
 	
 	public VaccinationSchedule getVaccinationScheduleById(Long id) {
-
-		return this.sessionFactory.getCurrentSession().get(VaccinationSchedule.class, id);
-	}
-	
-	public void updateVaccinationSchedule(VaccinationSchedule vaccinationshedule) {
-		this.sessionFactory.getCurrentSession().update(vaccinationshedule);		
+		return (VaccinationSchedule) this.sessionFactory.getCurrentSession().createQuery("from VaccinationSchedule where id = :id").setParameter("id", id).getSingleResult();
 	}
 	
 	
 //==================Meteodos Shot==============================================================================================	
 	
 	public Shot getShotById(Long id) {
-
-		return this.sessionFactory.getCurrentSession().get(Shot.class, id);
+		return (Shot) this.sessionFactory.getCurrentSession().createQuery("from Shot where id = :id").setParameter("id", id).getSingleResult();
 	}
 	
 
@@ -147,7 +139,7 @@ public class VaxRepository {
 
 	public Optional<ShotCertificate> getShotCertificateBySerialNumber(int serial_number) {
 		
-		return this.sessionFactory.getCurrentSession().createQuery("from ShotCertificate ss where ss.serialNumber='" + serial_number + "'").uniqueResultOptional();
+		return this.sessionFactory.getCurrentSession().createQuery("from ShotCertificate ss where ss.serialNumber=':serialNumber'").setParameter("serialNumber",serial_number).uniqueResultOptional();
 	}
 
 
@@ -160,7 +152,7 @@ public class VaxRepository {
 
 
 	public List<Nurse> getNurseWithMoreThanNYearsExperience(int years) {
-		return this.sessionFactory.getCurrentSession().createQuery("from Nurse n where n.experience > '" + years + "'").list();
+		return this.sessionFactory.getCurrentSession().createQuery("from Nurse n where n.experience > :years").setParameter("years",years).list();
 	}
 
 
@@ -178,11 +170,12 @@ public class VaxRepository {
 
 
 	public List<Nurse> getNurseNotShot() {
-		String query = "select n from Nurse n left join Shot s on n.id = s.nurse where s.nurse is null";
+		String query = "from Nurse where id not in (select distinct nurse from Shot)";
 		return this.sessionFactory.getCurrentSession().createQuery(query).list();
 	}
 
 
+	
 	public String getLessEmployeesSupportStaffArea() {
 		String query = "select s.area from SupportStaff s group by s.area order by count(s.area) asc";
 		return (String) this.sessionFactory.getCurrentSession().createQuery(query).setMaxResults(1).uniqueResult();
@@ -190,8 +183,7 @@ public class VaxRepository {
 
 
 	public List<Staff> getStaffWithName(String name) {
-		String query = "from Staff where nombre_completo like '"+ '%' + name + '%' +"'";
-		return this.sessionFactory.getCurrentSession().createQuery(query).getResultList();
+		return this.sessionFactory.getCurrentSession().createQuery("from Staff where nombre_completo like :name ").setParameter("name", "%" + name + "%" ).getResultList();
 	}
 
 
@@ -202,7 +194,6 @@ public class VaxRepository {
 
 
 	public List<ShotCertificate> getShotCertificatesBetweenDates(Date startDate, Date endDate) {
-		String query = "from ShotCertificate where date between '" + startDate + "' and '" + endDate +"' ";
 		return this.sessionFactory.getCurrentSession()
 				.createQuery("FROM ShotCertificate AS sc WHERE sc.date BETWEEN :stDate AND :edDate ")
 				.setParameter("stDate", startDate)

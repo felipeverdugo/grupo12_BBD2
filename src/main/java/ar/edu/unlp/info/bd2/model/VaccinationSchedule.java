@@ -9,6 +9,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
@@ -18,20 +20,20 @@ public class VaccinationSchedule {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_shedule", nullable = false)
+	@Column(nullable = false)
 	private long id;
 	
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy="vaccines_shedules" )
+	@ManyToMany()
+	@JoinTable(name="schedules_vaccines",
+			   joinColumns = @JoinColumn(name = "shedules_id"), 
+			   inverseJoinColumns = @JoinColumn(name = "vaccines_id")
+	)
     private List<Vaccine> vaccines;
 	
 	
 
 	public VaccinationSchedule() {		
 		this.vaccines = new ArrayList<Vaccine>();
-	}
-
-	public List<Vaccine> getVaccines() {
-		return this.vaccines;
 	}
 
 	public void addVaccine(Vaccine vaccine) {
@@ -43,6 +45,17 @@ public class VaccinationSchedule {
 		return id;
 	}
 	
+	public List<Vaccine> getVaccines() {
+		return this.vaccines;
+	}
+	
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public void setVaccines(List<Vaccine> vaccines) {
+		this.vaccines = vaccines;
+	}
 	
 	
 	

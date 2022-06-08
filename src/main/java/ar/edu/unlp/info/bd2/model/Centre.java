@@ -70,11 +70,11 @@ public class Centre {
 	
 	public void addStaff(Staff staff) {
 		this.staffs.add(staff);
-		staff.addSavedCentre(this);
+		staff.addCentre(this);
 	}
 	
-	public void addSavedStaff(Staff staff) {
-		this.staffs.add(staff);
-	}
+//	public void addSavedStaff(Staff staff) {
+//		this.staffs.add(staff);
+//	}
 
 }

@@ -22,7 +22,7 @@ public class Shot {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "Id", nullable = false)
+	@Column( nullable = false)
 	private long id;
 	
 	@ManyToOne
@@ -83,6 +83,27 @@ public class Shot {
 	
 	public ShotCertificate getShotCertificate() {
 		return shotCertificate;
+	}
+	public void setId(long id) {
+		this.id = id;
+	}
+	public void setPatient(Patient patient) {
+		this.patient = patient;
+	}
+	public void setVaccine(Vaccine vaccine) {
+		this.vaccine = vaccine;
+	}
+	public void setCentre(Centre centre) {
+		this.centre = centre;
+	}
+	public void setNurse(Nurse nurse) {
+		this.nurse = nurse;
+	}
+	public void setDate(Date date) {
+		this.date = date;
+	}
+	public void setShotCertificate(ShotCertificate shotCertificate) {
+		this.shotCertificate = shotCertificate;
 	}
 	
 	

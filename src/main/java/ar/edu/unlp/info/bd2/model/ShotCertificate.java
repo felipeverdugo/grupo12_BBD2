@@ -28,7 +28,7 @@ public class ShotCertificate {
 	
 	public ShotCertificate(Date date) {
 		this.date = date;
-		this.serialNumber = 100 + (int)(Math.random() * ((1000 - 100) + 1)); //valor aleatorio entre 100 y 1000
+		this.serialNumber = 100 + (int)(Math.random() * ((10000 - 100) + 1)); //valor aleatorio entre 100 y 10000
 	}
 	
 	public ShotCertificate() {

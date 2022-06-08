@@ -104,6 +104,10 @@ public class Patient{
 		this.dayOfBirth = dayOfBirth;
 	}
 	
+	public void setShots(List<Shot> shots) {
+		this.shots = shots;
+	}
+	
 	public void addShot(Shot shot) {
 		this.shots.add(shot);
 	}

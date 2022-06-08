@@ -69,12 +69,32 @@ public abstract class Staff {
 	
 	public void addCentre(Centre centre) {
 		this.centres.add(centre);	
-		centre.addSavedStaff(this);
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public void setDni(String dni) {
+		this.dni = dni;
+	}
+
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
+
+	public void setCentres(Collection<Centre> centres) {
+		this.centres = centres;
 	}
 	
-	protected void addSavedCentre(Centre centre) {
-		this.centres.add(centre);	
-	}
+	
+//	protected void addSavedCentre(Centre centre) {
+//		this.centres.add(centre);	
+//  }
 	
 	
 	
