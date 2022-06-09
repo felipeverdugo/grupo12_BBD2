@@ -23,7 +23,7 @@ public class Vaccine {
 	@Column(nullable = false)
 	private long id;
 	
-	@Column(name = "nombre", nullable = false)
+	@Column(name = "nombre", nullable = false, unique = true)
 	private String name;
 	
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "vaccines")

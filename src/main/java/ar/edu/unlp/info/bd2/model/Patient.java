@@ -33,7 +33,7 @@ public class Patient{
 	@Column(nullable = false)
 	private long id;
 	
-	@Column(name = "correo", nullable = false)
+	@Column(name = "correo", nullable = false, unique = true)
 	private String email;
 	@Column(name = "nombre_completo", nullable = false)
 	private String fullName;

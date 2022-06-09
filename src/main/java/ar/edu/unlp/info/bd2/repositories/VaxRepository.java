@@ -8,6 +8,7 @@ import java.util.Optional;
 import org.hibernate.Session;
 
 import org.hibernate.SessionFactory;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,9 +42,13 @@ public class VaxRepository {
 			System.out.println(aux.toString());
 			return serializableAux;
 		}
+		catch(ConstraintViolationException cve){
+			System.out.println(cve.getMessage());
+			throw new VaxException("Constraint Violation");	
+		}
 		catch (Exception e) {
 			System.out.println(e.getMessage());
-			throw new VaxException("Constraint Violation");			
+			throw new VaxException("Otro error");			
 		}
 	}
 	
@@ -177,13 +182,14 @@ public class VaxRepository {
 
 	
 	public String getLessEmployeesSupportStaffArea() {
-		String query = "select s.area from SupportStaff s group by s.area order by count(s.area) asc";
+		String query = "select s.area from SupportStaff s group by s.area order by count(s) asc";
 		return (String) this.sessionFactory.getCurrentSession().createQuery(query).setMaxResults(1).uniqueResult();
 	}
 
 
 	public List<Staff> getStaffWithName(String name) {
-		return this.sessionFactory.getCurrentSession().createQuery("from Staff where nombre_completo like :name ").setParameter("name", "%" + name + "%" ).getResultList();
+		return this.sessionFactory.getCurrentSession().createQuery("from Staff where nombre_completo like :name ")
+				.setParameter("name", "%" + name + "%" ).getResultList();
 	}
 
 

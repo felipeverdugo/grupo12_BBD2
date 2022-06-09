@@ -19,25 +19,14 @@ public class ShotCertificate {
 	@Column(nullable = false)
 	private long id;
 	
-	@Column(name = "fecha_creacion")
-	private Date date;
-	
 	@Column(name = "numero_de_serie", nullable = false)
 	private long serialNumber;
 	//falta validar q no se repita
 	
-	public ShotCertificate(Date date) {
-		this.date = date;
+	public ShotCertificate() {
 		this.serialNumber = 100 + (int)(Math.random() * ((10000 - 100) + 1)); //valor aleatorio entre 100 y 10000
 	}
 	
-	public ShotCertificate() {
-		
-	}
-	
-	public Date getDate() {
-		return date;
-	}
 
 	public long getSerialNumber() {
 		return serialNumber;

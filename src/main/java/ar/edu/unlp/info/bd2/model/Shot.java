@@ -59,7 +59,7 @@ public class Shot {
 		this.date = date;
 		this.centre = centre;
 		this.nurse = nurse;
-		this.shotCertificate = new ShotCertificate(date);
+		this.shotCertificate = new ShotCertificate();
 	}
 	
 	public long getId() {

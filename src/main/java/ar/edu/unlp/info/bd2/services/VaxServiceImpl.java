@@ -46,10 +46,10 @@ public class VaxServiceImpl implements VaxService{
 	
 	@Transactional
 	public Patient createPatient(String email, String fullname, String password, Date dayOfBirth) throws VaxException{
-		Optional<Patient> aux = this.repository.getPatientByEmail(email);
-		if (aux.isPresent()) {
-			throw new VaxException("Constraint Violation");
-		}
+//		Optional<Patient> aux = this.repository.getPatientByEmail(email);
+//		if (aux.isPresent()) {
+//			throw new VaxException("Constraint Violation");
+//		}
 		Patient patient = new Patient(email, fullname, password, dayOfBirth);
 		Serializable serializablePatient = this.repository.create(patient);
 		
@@ -67,10 +67,10 @@ public class VaxServiceImpl implements VaxService{
 	
 	@Transactional
 	public Vaccine createVaccine(String name) throws VaxException {
-		Optional<Vaccine> aux = this.repository.getVaccineByName(name);
-		if (aux.isPresent()) {
-			throw new VaxException("Constraint Violation");
-		}
+//		Optional<Vaccine> aux = this.repository.getVaccineByName(name);
+//		if (aux.isPresent()) {
+//			throw new VaxException("Constraint Violation");
+//		}
 		Vaccine vaccine = new Vaccine(name);
 		Serializable serializableVacinne = this.repository.create(vaccine);
 		
