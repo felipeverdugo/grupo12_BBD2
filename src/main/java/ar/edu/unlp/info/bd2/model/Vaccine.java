@@ -27,7 +27,7 @@ public class Vaccine {
 	private String name;
 	
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "vaccines")
-	private List<VaccinationSchedule> vaccines_shedules = new ArrayList<VaccinationSchedule>();
+	private List<VaccinationSchedule> vaccines_sheduler = new ArrayList<VaccinationSchedule>();
 	
 	
 	public Vaccine() {
@@ -55,11 +55,11 @@ public class Vaccine {
 	}
 
 	public List<VaccinationSchedule> getVaccines_shedules() {
-		return vaccines_shedules;
+		return vaccines_sheduler;
 	}
 
 	public void setVaccines_shedules(List<VaccinationSchedule> vaccines_shedules) {
-		this.vaccines_shedules = vaccines_shedules;
+		this.vaccines_sheduler = vaccines_shedules;
 	}
 
 	@Override
@@ -69,7 +69,7 @@ public class Vaccine {
 
 
 	public void addShedule(VaccinationSchedule shedule) {
-		this.vaccines_shedules.add(shedule);
+		this.vaccines_sheduler.add(shedule);
 	}
 
 

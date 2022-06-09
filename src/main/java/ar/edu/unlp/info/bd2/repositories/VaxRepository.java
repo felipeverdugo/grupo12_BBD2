@@ -35,7 +35,7 @@ public class VaxRepository {
 
 	}
 
-
+	
 	public Serializable create (Object aux) throws VaxException {
 		try {			
 			Serializable serializableAux = sessionFactory.getCurrentSession().save(aux);
@@ -51,6 +51,7 @@ public class VaxRepository {
 			throw new VaxException("Otro error");			
 		}
 	}
+	
 	
 	public void update(Object aux) {		
 		this.sessionFactory.getCurrentSession().update(aux);
@@ -194,14 +195,14 @@ public class VaxRepository {
 
 
 	public List<Vaccine> getUnappliedVaccines() {
-		String query = "select v from Vaccine v left join Shot s on v.id = s.vaccine where s.vaccine is null ";
+		String query = "from Vaccine where id not in ( select distinct vaccine from Shot ) ";
 		return this.sessionFactory.getCurrentSession().createQuery(query).list();
 	}
 
 
 	public List<ShotCertificate> getShotCertificatesBetweenDates(Date startDate, Date endDate) {
 		return this.sessionFactory.getCurrentSession()
-				.createQuery("FROM ShotCertificate AS sc WHERE sc.date BETWEEN :stDate AND :edDate ")
+				.createQuery("FROM ShotCertificate WHERE id in (select shotCertificate from Shot where date BETWEEN :stDate AND :edDate )")
 				.setParameter("stDate", startDate)
 				.setParameter("edDate", endDate)
 				.list();

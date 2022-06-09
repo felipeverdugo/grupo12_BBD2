@@ -46,10 +46,6 @@ public class VaxServiceImpl implements VaxService{
 	
 	@Transactional
 	public Patient createPatient(String email, String fullname, String password, Date dayOfBirth) throws VaxException{
-//		Optional<Patient> aux = this.repository.getPatientByEmail(email);
-//		if (aux.isPresent()) {
-//			throw new VaxException("Constraint Violation");
-//		}
 		Patient patient = new Patient(email, fullname, password, dayOfBirth);
 		Serializable serializablePatient = this.repository.create(patient);
 		
@@ -67,10 +63,6 @@ public class VaxServiceImpl implements VaxService{
 	
 	@Transactional
 	public Vaccine createVaccine(String name) throws VaxException {
-//		Optional<Vaccine> aux = this.repository.getVaccineByName(name);
-//		if (aux.isPresent()) {
-//			throw new VaxException("Constraint Violation");
-//		}
 		Vaccine vaccine = new Vaccine(name);
 		Serializable serializableVacinne = this.repository.create(vaccine);
 		
@@ -88,6 +80,7 @@ public class VaxServiceImpl implements VaxService{
 	
 //==================Meteodos Centre=======================	
 	
+	@Transactional
 	public Centre createCentre(String name) throws VaxException  {			
 		Centre centre = new Centre(name);
 		Serializable serializableCentre = this.repository.create(centre);
@@ -115,6 +108,7 @@ public class VaxServiceImpl implements VaxService{
 //==================Meteodos Nurse=======================	
 
 	@Override
+	@Transactional
 	public Nurse createNurse(String dni, String fullName, Integer experience) throws VaxException  {
 		Nurse nurse = new Nurse(dni, fullName, experience);
 		Serializable serializableCentre = this.repository.create(nurse);
@@ -130,6 +124,7 @@ public class VaxServiceImpl implements VaxService{
 //==================Meteodos SupportStaff=======================
 
 	@Override
+	@Transactional
 	public SupportStaff createSupportStaff(String dni, String fullName, String area) throws VaxException  {
 		SupportStaff supportStaff = new SupportStaff(dni, fullName, area);
 		Serializable serializableCentre = this.repository.create(supportStaff);
@@ -153,7 +148,8 @@ public class VaxServiceImpl implements VaxService{
 	
 	
 //==================Meteodos VaccinationSchedule=======================
-
+	
+	@Transactional
 	public VaccinationSchedule createVaccinationSchedule() throws VaxException {
 		VaccinationSchedule vaccinationSchedule = new VaccinationSchedule();
 		Serializable serializableCentre = this.repository.create(vaccinationSchedule);
@@ -180,6 +176,7 @@ public class VaxServiceImpl implements VaxService{
 
 
 	@Override
+	@Transactional
 	public Shot createShot(Patient patient, Vaccine vaccine, Date date, Centre centre, Nurse nurse) throws VaxException {
 		Shot shot = new Shot(patient, vaccine, date, centre, nurse);
 		patient.addShot(shot);
