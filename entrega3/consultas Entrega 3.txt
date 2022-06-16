@@ -1,0 +1,60 @@
+Consultas 
+-
+5) 
+db.nurses.insertOne( {name:"Morella Crespo", experience:9} )
+db.nurses.find()
+db.nurses.find().pretty()
+
+No se noto ninguna diferencia
+6) db.nurses.insertMany {
+[
+	{name:'Gale Molina', experience:8, vaccines: ['AZ', 'Moderna']},
+	{name:'Honoria Fernández', experience:5, vaccines: ['Pfizer', 'Moderna', 'Sputnik V']},
+	{name:'Gonzalo Gallardo', experience:3},
+	{name:'Altea Parra', experience:6, vaccines: ['Pfizer']}
+]}
+
+* db.nurses.find( { experience : { $gt : 5}})
+
+* db.nurses.find( { vaccines : "Pfizer"})
+
+* db.nurses.find( { vaccines : {$exist : false}})
+
+* db.nurses.find( { name : /Fernández/ })
+
+* db.nurses.find( { experience : { $gt : 6 } , vaccines : "Moderna"})
+
+* db.nurses.find( { experience : { $gt : 6 } , vaccines : "Moderna"}, { name : 1 , "_id" : 0})
+
+7)
+
+ db.nurses.updateOne( {name : "Gale Molina"} , { $set : { experience : 9}})
+
+8)
+
+ db.nurses.updateOne( 
+	{ name : "Gonzalo Gallardo"},
+	{ $set : {vaccines : [] }}
+)
+
+9) 
+
+db.nurses.update ( {name : "Altea Parra"} , { $push : {vaccines : "AZ"}})
+
+10)
+
+db.nurses.updateMany ( { vaccines : "Pfizer" }, { $mul : { experience : 2 } })
+
+11)
+
+db.doses.getIndexes()
+
+12)
+
+db.doses.createIndex( { nurse : 1})
+
+db.doses.find ( { nurse : /11/ } ).explain("executionStats")
+
+db.doses.dropIndex( "nurse_1" )
+
+db.doses.find ( { nurse : /11/ } ).explain("executionStats")
