@@ -28,15 +28,15 @@ public class Shot {
     @JoinColumn(name="patient_id", nullable = false)
 	private Patient patient;
 	
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToOne( fetch = FetchType.LAZY)
 	@JoinColumn(name = "vaccine_id",nullable = false)
 	private Vaccine vaccine;
 			
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToOne( fetch = FetchType.LAZY)
 	@JoinColumn(name = "centre_id",nullable = false)
 	private Centre centre;
 	
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToOne( fetch = FetchType.LAZY)
 	@JoinColumn(name = "nurse_id",nullable = false)
 	private Nurse nurse;
 	
@@ -59,6 +59,7 @@ public class Shot {
 		this.centre = centre;
 		this.nurse = nurse;
 		this.shotCertificate = new ShotCertificate();
+		patient.addShot(this);
 	}
 	
 	public long getId() {
